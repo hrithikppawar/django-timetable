@@ -1,0 +1,22 @@
+{% extends 'table/home.html' %} {% block title %} Dashboard {% endblock %} 
+{% block body %}
+<div>
+  <h1>Create Table</h1>
+  <form action="" method="POST">
+    {% csrf_token %} {{ form }}
+    <input type="submit" name="Submit" />
+  </form>
+</div>
+<div>
+  <table>
+    {% for Day in Days %}
+    <tr>
+      <td>{{ Day }}</td>
+      {% for lecture in Day %}
+        <td>{{ lecture.start_time }}--{{ lecture.subject }}--{{ lecture.end_time }}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}
