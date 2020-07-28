@@ -1,9 +1,11 @@
 from django.db import models
-
+from django.contrib.auth import get_user_model
+from django.db import models
 # Create your models here.
 
 
 class Day(models.Model):
+
     DAYS = (
         ('Monday', 'Monday'),
         ('Tuesday', 'Tuesday'),
@@ -13,6 +15,8 @@ class Day(models.Model):
         ('Saturday', 'Saturday'),
         ('Sunday', 'Sunday')
     )
+    user = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, default=1)
     day_name = models.CharField('Day of the week', max_length=64, choices=DAYS)
     start_time = models.TimeField('Start')
     end_time = models.TimeField('End')

@@ -1,0 +1,8 @@
+<nav class="navbar navbar-light" style="background-color: #03fce8;">
+  <span>Hello, {{ request.user }}</span>
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="btn nav-link" href="{% url 'logout' %}">Logout</a>
+    </li>
+  </ul>
+</nav>

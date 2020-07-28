@@ -1,0 +1,43 @@
+{% extends 'table/home.html' %} {% block title %} Login {% endblock %} 
+{% block style %} 
+
+.form{ 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #03fce8; 
+    padding: 4% 2% 4% 2%; 
+    border-radius: 5%; 
+    text-align: center;
+} 
+
+{% endblock %} 
+{% block body %}
+<div class="form">
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="exampleInputEmail1">Username</label>
+        <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        
+    </div>
+    <hr>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <button class='btn btn-primary'>Sign-in</button>
+    </form>
+    <div>
+        {% for message in messages %}
+            <p class="alert alert-warning">{{ message }}</p>
+        {% endfor %}
+    </div>    
+    <div>
+        <p>If you don't have account, then <a href='{% url 'register' %}'>Register.</a></p>
+    </div>
+</div>
+{% endblock %}
+

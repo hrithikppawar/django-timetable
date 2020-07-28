@@ -1,0 +1,22 @@
+{% extends 'table/home.html' %}
+
+{% block title %}
+    Delete
+{% endblock %}
+
+
+{% block body %}
+    <div class="container">
+      
+      <div class="jambotron">
+        
+        <form action='{% url 'delete' lecture.id %}' method='POST'>
+            {% csrf_token %}
+            <label><h1 id="head">Do you want to delete lecture of {{ lecture.subject }} on {{ lecture.day_name }}?</h1></label><hr>
+            <a class="btn btn-primary" href='{% url "index" %}'>Cancel</a>
+            <button class="btn btn-danger">Confirm</button>
+        </form>
+        
+      </div>
+    </div>
+{% endblock %}

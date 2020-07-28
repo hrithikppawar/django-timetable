@@ -1,22 +1,102 @@
 {% extends 'table/home.html' %} {% block title %} Dashboard {% endblock %} 
+
+{% block style %}
+
+body{
+  background-color: #0040ff;
+}
+.block {
+  position: relative;
+  text-align: center;
+}
+
+.lecture {
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+.table-form{
+  
+  top:5%;
+  left: 20%;
+  right: 20%;
+}
+
+.btn-sm {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.block:hover .lecture {
+  opacity: 0.3;
+}
+
+.block:hover .btn-sm {
+  opacity: 1;
+}
+
+{% endblock %}
+
 {% block body %}
-<div>
-  <h1>Create Table</h1>
-  <form action="" method="POST">
-    {% csrf_token %} {{ form }}
-    <input type="submit" name="Submit" />
+{% include 'table/navbar_user.html' %}
+<div class="container">
+  <h1 class="mt-4 mb-4">Create Table</h1>
+  <form class="table-form" action="" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+    <label for="exampleFormControlSelect1">Day of a Week</label>
+    <select class="form-control" name='day' id="exampleFormControlSelect1">
+      <option>Monday</option>
+      <option>Tuesday</option>
+      <option>Wednesday</option>
+      <option>Thursday</option>
+      <option>Friday</option>
+      <option>Saturday</option>
+      <option>Sunday</option>
+    </select>
+    </div>
+      <hr>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Start</label>
+        <input type="text" name="start_time" placeholder="--:-- 24H Format" class="form-control">
+    </div>
+      <hr>
+    <div class="form-group">
+      <label for="exampleInputPassword1">End</label>
+      <input type="text" name="end_time" placeholder="--:-- 24H Format" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Subject</label>
+      <input type="text" name="subject" placeholder="Subject" class="form-control">
+    </div>
+    <button class='btn btn-primary'>Sign-in</button>
   </form>
 </div>
-<div>
-  <table>
-    {% for Day in Days %}
+<div class="mt-4 mb-4">
+  <table class="table table-striped">
+    {% for Day, lectures in Days.items %}
     <tr>
-      <td>{{ Day }}</td>
-      {% for lecture in Day %}
-        <td>{{ lecture.start_time }}--{{ lecture.subject }}--{{ lecture.end_time }}</td>
+      <th scope="row">{{ Day }}</td>
+      {% for lecture in lectures %}
+        <td class="block"><div class="lecture">{{ lecture.start_time }}--{{ lecture.subject }}--{{ lecture.end_time }}</div>
+          <a href="{% url 'delete' lecture.id %}" class="btn btn-danger btn-sm m-2">X</a></td>
       {% endfor %}
     </tr>
     {% endfor %}
   </table>
 </div>
+{% endblock %}
+
+{% block script %}
+  var start_time_field = document.getElementById("id_start_time")
+  start_time_field.placeholder = "--:-- 24 hour format"
+  var end_time_field = document.getElementById("id_end_time")
+  end_time_field.placeholder = "--:-- 24 hour format"
 {% endblock %}
