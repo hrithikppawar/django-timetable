@@ -14,8 +14,12 @@ body {
 }
 .table-form {
   top: 5%;
-  left: 20%;
-  right: 20%;
+  left: 30%;
+  right: 30%;
+  background-color: #03fce8;
+  padding: 4% 2% 4% 2%;
+  border-radius: 5%;
+  text-align: center;
 }
 
 .btn-sm {

@@ -3,7 +3,7 @@
 {% block body %}
 {% include 'table/navbar_user.html' %}
 <div class="container">
-  <h1 class="mt-4 mb-4">Create Table</h1>
+  <h1 class="mt-4 mb-4">Create Time Table</h1>
   <form class="table-form" action="" method="POST">
     {% csrf_token %}
     <div class="form-group">
@@ -32,7 +32,7 @@
       <label for="exampleInputPassword1">Subject</label>
       <input type="text" name="subject" placeholder="Subject" class="form-control">
     </div>
-    <button class='btn btn-primary'>Sign-in</button>
+    <button class='btn btn-primary'>Add Lecture</button>
   </form>
 </div>
 <div class="mt-4 mb-4">
