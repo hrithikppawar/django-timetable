@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^o$o=fk-eipbrz3$x*#&bqa12^==^i_o5sq@qo9v_vu+)g*-%5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['thetimetable.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
