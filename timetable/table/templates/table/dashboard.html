@@ -32,17 +32,35 @@
       <label for="exampleInputPassword1">Subject</label>
       <input type="text" name="subject" placeholder="Subject" class="form-control">
     </div>
+    {% for message in messages %}
+            <p class="alert alert-warning">{{ message }}</p>
+    {% endfor %}
     <button class='btn btn-primary'>Add Lecture</button>
   </form>
 </div>
 <div class="mt-4 mb-4">
   <table class="table table-striped">
+    <tr>
+      <td>  </td>
+      {% for time in times %}
+        <td style="text-align: center;">{{ time }}</td>
+      {% endfor %}
+    </tr>
     {% for Day, lectures in Days.items %}
     <tr>
       <th scope="row">{{ Day }}</td>
-      {% for lecture in lectures %}
-        <td class="block"><div class="lecture">{{ lecture.start_time }}--{{ lecture.subject }}--{{ lecture.end_time }}</div>
-          <a href="{% url 'delete' lecture.id %}" class="btn btn-danger btn-sm m-2">X</a></td>
+      
+      {% for time in times %}
+      <td class="block">
+        {% for lecture in lectures %}
+       
+        {% if time == lecture.start_time %}
+        <div class="lecture">{{ lecture.start_time }}--{{ lecture.subject }}--{{ lecture.end_time }}</div>
+          <a href="{% url 'delete' lecture.id %}" class="btn btn-danger btn-sm m-2">X</a>
+        {% endif %}
+      
+        {% endfor %}
+      </td>  
       {% endfor %}
     </tr>
     {% endfor %}
@@ -52,7 +70,7 @@
 
 {% block script %}
   var start_time_field = document.getElementById("id_start_time")
-  start_time_field.placeholder = "--:-- 24 hour format"
+  start_time_field.placeholder = "HH:MM 24 hour format"
   var end_time_field = document.getElementById("id_end_time")
-  end_time_field.placeholder = "--:-- 24 hour format"
+  end_time_field.placeholder = "HH:MM 24 hour format"
 {% endblock %}

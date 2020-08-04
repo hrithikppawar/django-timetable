@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, Http404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -51,13 +51,25 @@ def logoutUser(request):
 @login_required(login_url='login')
 def index(request):
     # FORM PART
-    if request.method == 'POST':
-        day = request.POST.get('day')
-        start_time = request.POST.get('start_time')
-        end_time = request.POST.get('end_time')
-        subject = request.POST.get('subject')
-        Day.objects.create(user=request.user, day_name=day,
-                           start_time=start_time, end_time=end_time, subject=subject)
+    try:
+        if request.method == 'POST':
+            day = request.POST.get('day')
+            start_time = request.POST.get('start_time')
+            end_time = request.POST.get('end_time')
+            subject = request.POST.get('subject')
+            Day.objects.create(user=request.user, day_name=day,
+                               start_time=start_time, end_time=end_time, subject=subject)
+    except:
+        messages.info(
+            request, 'You have to response to all fields in proper format')
+
+    slots = Day.objects.filter(user=request.user).order_by('start_time')
+    times = []
+    for time in slots:
+        temp = time.start_time
+        if temp in times:
+            continue
+        times.append(temp)
 
     Days = {
         'Monday': Day.objects.filter(user=request.user).filter(day_name='Monday').order_by('start_time'),
@@ -70,7 +82,8 @@ def index(request):
     }
 
     content = {
-        'Days': Days
+        'Days': Days,
+        'times': times
     }
     return render(request, 'table/dashboard.html', content)
 
